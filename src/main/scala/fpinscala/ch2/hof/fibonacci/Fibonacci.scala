@@ -1,9 +1,11 @@
 package fpinscala.ch2.hof.fibonacci
 
+import fpinscala.ch2.hof.Big
+
 object Fibonacci {
 
-  def fibonacci_1(n: Int): Int = n match {
-    case 0 | 1 => n
+  def fibonacci_1(n: BigInt): BigInt = n match {
+    case Big(0) | Big(1) => n
     case _ => {
       val n1 = fibonacci_1(n - 1)
       val n2 = fibonacci_1(n - 2)
