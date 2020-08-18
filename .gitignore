@@ -2,6 +2,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/git,sbt,scala,windows,intellij,vim
 # Edit at https://www.toptal.com/developers/gitignore?templates=git,sbt,scala,windows,intellij,vim
 
+project/target
+
 ### Git ###
 # Created by git for backups. To disable backups in Git:
 # $ git config --global mergetool.keepBackup false
@@ -119,6 +121,7 @@ fabric.properties
 # CodeStream plugin
 # https://plugins.jetbrains.com/plugin/12206-codestream
 .idea/codestream.xml
+.idea/
 
 ### SBT ###
 # Simple Build Tool
