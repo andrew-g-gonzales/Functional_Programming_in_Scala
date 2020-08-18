@@ -1,8 +1,10 @@
 package fpinscala.ch2.hof.factorial
 
+import fpinscala.ch2.hof.Big
+
 object Factorial {
 
-  def factorial2(n:Int):BigInt ={
+  def factorial2(n:BigInt):BigInt ={
     if(n==0){
       1
     }else{
@@ -10,10 +12,10 @@ object Factorial {
     }
   }
 
-  def factorial(n:Int): BigInt ={
+  def factorial(n:BigInt): BigInt ={
 
     @annotation.tailrec
-    def go(n:Int, acc:BigInt):BigInt ={
+    def go(n:BigInt, acc:BigInt):BigInt ={
       if(n ==0){
         acc
       }else{
