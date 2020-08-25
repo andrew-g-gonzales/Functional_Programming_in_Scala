@@ -1,9 +1,9 @@
-package fpinscala.ch2.hof.parially_applied
+package fpinscala.ch2.hof.partial
 
 import org.scalatest.funsuite.AnyFunSuite
-import fpinscala.ch2.hof.parially_applied.Partially_Applied._
+import fpinscala.ch2.hof.partial.Partial._
 
-class TestPartially_Applied extends AnyFunSuite{
+class TestPartial extends AnyFunSuite{
 
   test("Partially Applied [Int,Int,String]"){
 
@@ -15,7 +15,7 @@ class TestPartially_Applied extends AnyFunSuite{
 
   test("Partially Applied [String,String,Boolean]"){
 
-    val check:String=>Boolean = partial1[String,String,Boolean]("123*",contains)
+    val check:String=>Boolean = partial1[String,String,Boolean]("*123*",contains)
     val doesItContain =  check("abc1234def")
     assert(doesItContain)
     println(doesItContain)
