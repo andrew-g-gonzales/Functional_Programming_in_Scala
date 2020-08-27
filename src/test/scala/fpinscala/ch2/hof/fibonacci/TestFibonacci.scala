@@ -9,14 +9,14 @@ class TestFibonacci extends AnyFunSuite{
 
   test("test non tail-call recursive factorial "){
 
-    val result = fibonacci_2(35)
-    assert(result == 9227465)
+    val result = fibonacci_2(7)
+    assert(result == 13)
   }
 
   test("Test tail call recursive program"){
 
-    val result = fibonacci_2(35)
-    assert(result == 9227465)
+    val result = fibonacci_2(7)
+    assert(result == 13)
   }
 
 

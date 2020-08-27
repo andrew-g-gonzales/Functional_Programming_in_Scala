@@ -6,4 +6,6 @@ object Currying {
 
   val pred:Int=>Boolean = (y:Int) => y<10
   val higher : (Int=>Boolean) => (Int=>Boolean) = (k:Int=>Boolean) => pred
+
+  def uncurry[A,B,C](f:A=>B=>C):(A,B)=>C = (a,b)=>f(a)(b)
 }

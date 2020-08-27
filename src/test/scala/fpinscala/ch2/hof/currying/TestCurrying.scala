@@ -28,7 +28,16 @@ class TestCurrying extends AnyFunSuite{
 
    val aFunc = higher(pred)
     assert(!aFunc(20))
+  }
 
+  test("Test uncurrying"){
+
+    val sum = (a:Int)=>(b:Int)=>a+b
+    val uncurried = uncurry(sum)
+    val sum1 = sum(1)(2)
+    val sum2 =uncurried(1,2)
+
+    assert(sum1 == sum2)
   }
 
 

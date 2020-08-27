@@ -6,6 +6,7 @@ object Fibonacci {
 
   def fibonacci_2(n:BigInt):BigInt = {
 
+    @annotation.tailrec
     def loop(n:BigInt, prev:BigInt, curr:BigInt):BigInt = {
       if(n <= 1){
         curr
@@ -13,6 +14,7 @@ object Fibonacci {
         loop(n-1,curr,prev+curr)
       }
     }
+
     loop(n,0,1)
   }
 
