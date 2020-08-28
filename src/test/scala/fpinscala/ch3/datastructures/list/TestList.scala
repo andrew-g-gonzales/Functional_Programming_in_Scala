@@ -5,6 +5,30 @@ import org.scalatest.funsuite.AnyFunSuite
 
 class TestList extends AnyFunSuite{
 
+  test("Test setHead() with 9 elements"){
+
+    val ds:List[Int] = List(2,2,3,4,5,6,7,8,9)
+    val result = List.setHead(ds,1)
+    assertResult(List(1,2,3,4,5,6,7,8,9))(result)
+    println(result)
+  }
+
+  test("Test setHead() with Nil"){
+
+    val ds:List[Int] = Nil
+    val result = List.setHead(ds,1)
+    assertResult(List(1))(result)
+    println(result)
+  }
+
+  test("Test setHead() with 1 element"){
+
+    val ds:List[Int] = List(10)
+    val result = List.setHead(ds,1)
+    assertResult(List(1))(result)
+    println(result)
+  }
+
   test("Test tail() implementation"){
 
     val ds = List(1,2,3,4,5,6,7,8,9)
