@@ -10,7 +10,7 @@ class TestCurrying extends AnyFunSuite{
     val product = curry[Int,Int,String]((a,b)=> String.valueOf(a*b))
     val result = product(5)(10)
     println(result)
-    assertResult(50)(result)
+    assertResult("50")(result)
   }
 
   test("Test Curry Proof"){

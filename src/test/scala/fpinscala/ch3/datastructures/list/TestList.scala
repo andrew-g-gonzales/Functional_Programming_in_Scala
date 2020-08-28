@@ -5,6 +5,38 @@ import org.scalatest.funsuite.AnyFunSuite
 
 class TestList extends AnyFunSuite{
 
+  test("Test drop() 3 from 9 elements"){
+
+    val ds:List[Int] = List(1,2,3,4,5,6,7,8,9)
+    val result = List.drop(ds,3)
+    assertResult(List(4,5,6,7,8,9))(result)
+    println(result)
+  }
+
+  test("Test drop() 8 from 9 elements"){
+
+    val ds:List[Int] = List(1,2,3,4,5,6,7,8,9)
+    val result = List.drop(ds,8)
+    assertResult(List(9))(result)
+    println(result)
+  }
+
+  test("Test drop() 9 from 9 elements"){
+
+    val ds:List[Int] = List(1,2,3,4,5,6,7,8,9)
+    val result = List.drop(ds,9)
+    assertResult(Nil)(result)
+    println(result)
+  }
+
+  test("Test drop() 10 from 9 elements"){
+
+    val ds:List[Int] = List(1,2,3,4,5,6,7,8,9)
+    val result = List.drop(ds,10)
+    assertResult(Nil)(result)
+    println(result)
+  }
+
   test("Test setHead() with 9 elements"){
 
     val ds:List[Int] = List(2,2,3,4,5,6,7,8,9)

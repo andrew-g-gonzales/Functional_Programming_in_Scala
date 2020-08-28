@@ -6,6 +6,16 @@ case class Cons[+A](head:A, tail:List[A]) extends List[A]
 
 object List {
 
+  def drop[A](ds:List[A], n:Int):List[A] = {
+    if( n ==0){ds}
+    else{
+      ds match {
+        case Cons(x,xs)=> drop(xs,n-1)
+        case Cons(_,Nil) | Nil => Nil
+      }
+    }
+  }
+
   def setHead[A](ds:List[A], a:A):List[A] = ds match {
     case Nil | Cons(_,Nil) => Cons(a, Nil)
     case Cons(x,xs) => Cons(a,xs)
