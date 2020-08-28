@@ -6,6 +6,12 @@ case class Cons[+A](head:A, tail:List[A]) extends List[A]
 
 object List {
 
+  def tail[A](ds:List[A]) = ds match{
+    case Nil => Nil
+    case Cons(x,Nil)=> x
+    case Cons(_,xs)=>xs
+  }
+
   def product(ds:List[Double]):Double = ds match {
     case Nil => 1.0
     case Cons(0.0,_) => 0.0
