@@ -6,6 +6,15 @@ case class Cons[+A](head:A, tail:List[A]) extends List[A]
 
 object List {
 
+  def foldRight[A,B](ds:List[A],z:B)(f:(A,B)=>B):B = ds match {
+    case Nil => z
+    case Cons(x, xs) => f(x, foldRight(xs,z)(f))
+  }
+
+  def sum2(list:List[Int]):Int = foldRight(list,0)(_+_)
+
+  def product2(list:List[Double]):Double = foldRight(list,1.0)((x,y)=> if(x == 0.0 || y ==0.0)0.0 else x*y)
+
   def init[A](ds:List[A]):List[A] = ds match {
     case Cons(_, Nil) | Nil => Nil
     case Cons(x,xs) => Cons(x,init(xs))

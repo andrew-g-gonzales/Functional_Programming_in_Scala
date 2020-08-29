@@ -134,6 +134,15 @@ class TestList extends AnyFunSuite{
     println(x)
   }
 
+  test("Test sum2()"){
+
+    val nums:List[Int] = Cons(1,Cons(2,Cons(3,Nil)))
+    //println(nums)
+    val result = List.sum2(nums)
+    println(result)
+    assertResult(6)(result)
+  }
+
   test("Test sum()"){
 
     val nums:List[Int] = Cons(1,Cons(2,Cons(3,Nil)))
@@ -143,7 +152,15 @@ class TestList extends AnyFunSuite{
     assertResult(6)(result)
   }
 
-  test("Test product"){
+  test("Test product2() "){
+
+    val nums:List[Double] = Cons(1.0, Cons(2.0, Cons(3.0, Cons(4.0,Nil))))
+    val result = List.product2(nums)
+    println(result)
+    assertResult(24)(result)
+  }
+
+  test("Test product() "){
 
     val nums:List[Double] = Cons(1.0, Cons(2.0, Cons(3.0, Cons(4.0,Nil))))
     val result = List.product(nums)
