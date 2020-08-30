@@ -6,6 +6,19 @@ case class Cons[+A](head:A, tail:List[A]) extends List[A]
 
 object List {
 
+  def foldLeft[A,B](ds:List[A],z:B)(f:(B,A)=>B):B ={
+
+    @annotation.tailrec
+    def go(ds:List[A],z:B):B = ds match{
+      case Nil =>z
+      case Cons(x,xs) => go(xs,f(z,x))
+    }
+
+    go(ds,z)
+  }
+
+  def length[A](ds:List[A]) = foldRight(ds,0)((x,y)=>y+1)
+
   def foldRight[A,B](ds:List[A],z:B)(f:(A,B)=>B):B = ds match {
     case Nil => z
     case Cons(x, xs) => f(x, foldRight(xs,z)(f))
@@ -13,7 +26,7 @@ object List {
 
   def sum2(list:List[Int]):Int = foldRight(list,0)(_+_)
 
-  def product2(list:List[Double]):Double = foldRight(list,1.0)((x,y)=> if(x == 0.0 || y ==0.0)0.0 else x*y)
+  def product2(list:List[Double]):Double = foldRight(list,1.0)(_ * _)
 
   def init[A](ds:List[A]):List[A] = ds match {
     case Cons(_, Nil) | Nil => Nil

@@ -5,6 +5,39 @@ import org.scalatest.funsuite.AnyFunSuite
 
 class TestList extends AnyFunSuite{
 
+  test("Test length"){
+
+    val list = List(1,2,3,4,5,6,7,8)
+    val length = List.length(list)
+    assertResult(8)(length)
+    println(length)
+  }
+
+  test("Testing 3.10 with sum"){
+
+    val list = List(1,2,3,4,5)
+    val result = List.foldLeft(list,0)(_+_)
+
+    assertResult(15)(result)
+   println(result)
+  }
+
+  test("Testing 3.10"){
+
+    val list = List(1,2,3,4,5,6,7,8)
+    val result = List.foldLeft(list,Nil:List[Int])((b,a)=> Cons(a,b))
+    assertResult(List(8,7,6,5,4,3,2,1))(result)
+    println(result)
+  }
+
+  test("Testing 3.8"){
+
+    val list = List(1,2,3,4,5,6,7,8)
+    val result = List.foldRight(list,Nil:List[Int])(Cons(_,_))
+    assertResult(list)(result)
+    println(result)
+  }
+
   test("Test dropWhile()"){
 
     val ds:List[Int] = List(1,2,3,4,5,6,7,8,9)
