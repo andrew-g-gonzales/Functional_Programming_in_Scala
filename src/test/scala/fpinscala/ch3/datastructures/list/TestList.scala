@@ -5,12 +5,123 @@ import org.scalatest.funsuite.AnyFunSuite
 
 class TestList extends AnyFunSuite{
 
+  test("Testing 3.22: Write a function that accepts two lists and constructs a new list by adding corresponding " +
+    "elements. For example, List(1,2,3) and List(4,5,6) become List(5,7,9). "){
+
+    val (list1,list2) = (List(1,2,3), List(4,5,6))
+    val addedPairWise = List.addPairWise(list1,list2)
+    assertResult(List(5,7,9))(addedPairWise)
+    println(addedPairWise)
+  }
+
+  test("Testing 3.21: Use flatMap to implement filter."){
+
+    val list = List(8,6,7,5,3,0,9)
+    val filtered =List.filterViaFlatMap(list)(_>5)
+    assertResult(List(8,6,7,9))(filtered)
+    println(filtered)
+  }
+
+  test("Testing 3.20: Write a function flatMap that works like map except that the function given will return " +
+    "a list instead of a single result, and that list should be inserted into the final resulting list"){
+
+    val list = List(1,2,3)
+    val flatMapped = List.flatMap(list)(i=>List(i,i))
+    assertResult(List(1,1,2,2,3,3))(flatMapped)
+    println(flatMapped)
+  }
+
+  test("Testing 3.18: Write a function map that generalizes modifying each element in a list while maintaining " +
+    "the structure of the list.  Using Fold Right"){
+
+    val list = List(1,2,3,4,5,6,7,8,9,10)
+    val doubled = List.map2(list)(_*2)
+    assertResult(List(2,4,6,8,10,12,14,16,18,20))(doubled)
+    println(doubled)
+  }
+
+
+  test("Testing 3.18: Write a function map that generalizes modifying each element in a list while maintaining " +
+    "the structure of the list."){
+
+    val list = List(1,2,3,4,5,6,7,8,9,10)
+    val doubled = List.map(list)(_*2)
+    assertResult(List(2,4,6,8,10,12,14,16,18,20))(doubled)
+    println(doubled)
+  }
+
+  test("Testing 3.17: Write a function that turns each value in a List[Double] into a String."){
+
+    val list = List(1.1,2.2,3.3,4.4,5.5,6.6,7.7,8.8,9.9)
+    val stringified = List.stringifyDoubleList(list)
+    assertResult(List("1.1","2.2","3.3","4.4","5.5","6.6","7.7","8.8","9.9"))(stringified)
+    println(stringified)
+  }
+
+  test("Testing 3.16: adding 1 to a list, returning a new list"){
+
+    val list = List(1,2,3,4,5,6,7,8,9)
+    val newList = List.add1(list)
+    assertResult(List(2,3,4,5,6,7,8,9,10))(newList)
+    println(newList)
+  }
+
+  test("Testing 3.15: Concatenate list of lists with functions already used "){
+
+    val listOfLists = List(List(1,2,3), List(4,5,6), List(7,8,9))
+    val list = List.flatten(listOfLists)
+    assertResult(List(1,2,3,4,5,6,7,8,9))(list)
+    println(list)
+  }
+
+  test("Test 3.14: append function with foldLeft "){
+
+    val list1 = List(1,2,3,4,5)
+    val list2 = List(6,7,8,9,10)
+    val appended =List.append2(list1,list2)
+    assertResult(List(1,2,3,4,5,6,7,8,9,10))(appended)
+    println(appended)
+  }
+
+  test("Test 3.14: append function with foldRight"){
+
+    val list1 = List(1,2,3,4,5)
+    val list2 = List(6,7,8,9,10)
+    val appended =List.append1(list1,list2)
+    assertResult(List(1,2,3,4,5,6,7,8,9,10))(appended)
+    println(appended)
+  }
+
+  test("Testing 3.12: reverse() function"){
+
+    val list = List(1,2,3,4,5,6,7,8,9)
+    val reversed = List.reverse(list)
+    assertResult(List(9,8,7,6,5,4,3,2,1))(reversed)
+    println(reversed)
+  }
+
   test("Test length"){
 
     val list = List(1,2,3,4,5,6,7,8)
     val length = List.length(list)
     assertResult(8)(length)
     println(length)
+  }
+
+  test("Testing 3.11: product with foldLeft() "){
+
+    val list:List[Double] = List(1,2,3,4)
+    val result = List.product3(list)
+    assertResult(24)(result)
+    println(result)
+  }
+
+  test("Testing 3.11: sum with foldLeft()"){
+
+    val list = List(1,2,3,4)
+    val result = List.sum3(list)
+    assertResult(10)(result)
+    println(result)
   }
 
   test("Testing 3.10 with sum"){
