@@ -5,6 +5,15 @@ import org.scalatest.funsuite.AnyFunSuite
 
 class TestList extends AnyFunSuite{
 
+  test("Testing 3.23: Generalize the function you just wrote so that it’s not specific to integers or addition."){
+
+    val list1 = List("A", "B", "C")
+    val list2 = List(1, 2, 3)
+    val zipped = List.zipWith(list1,list2)((a,b)=> s"$a$b")
+    assertResult(List("A1", "B2", "C3"))(zipped)
+    println(zipped)
+  }
+
   test("Testing 3.22: Write a function that accepts two lists and constructs a new list by adding corresponding " +
     "elements. For example, List(1,2,3) and List(4,5,6) become List(5,7,9). "){
 

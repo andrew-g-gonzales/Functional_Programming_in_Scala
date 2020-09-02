@@ -6,6 +6,12 @@ case class Cons[+A](head:A, tail:List[A]) extends List[A]
 
 object List {
 
+  def zipWith[A,B,C](list1:List[A], list2:List[B])(f:(A,B)=>C):List[C] = (list1,list2) match {
+    case (Nil,_) =>Nil
+    case (_,Nil) =>Nil
+    case (Cons(x,xs), Cons(y,ys)) => Cons(f(x,y), zipWith(xs,ys)(f))
+  }
+
   def addPairWise[A](list1:List[Int], list2:List[Int]):List[Int] = (list1,list2) match {
     case (Nil,_) =>Nil
     case (_,Nil) =>Nil
