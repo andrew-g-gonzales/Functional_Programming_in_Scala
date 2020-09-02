@@ -5,6 +5,69 @@ import org.scalatest.funsuite.AnyFunSuite
 
 class TestList extends AnyFunSuite{
 
+  test("Testing 3.24 7: "){
+
+    val list = List(1,2,3,4,5)
+    val sub = List(5)
+    val result = List.hasSubsequence(list,sub)
+    assertResult(true)(result)
+    println(result)
+  }
+
+  test("Testing 3.24 6: "){
+
+    val list = List(1,2,3,4,5)
+    val sub = List(1)
+    val result = List.hasSubsequence(list,sub)
+    assertResult(true)(result)
+    println(result)
+  }
+
+  test("Testing 3.24 5: "){
+
+    val list = List(1,2,3,4,5)
+    val sub = List(1,2,3,4)
+    val result = List.hasSubsequence(list,sub)
+    assertResult(true)(result)
+    println(result)
+  }
+
+  test("Testing 3.24 4: "){
+
+    val list = List(1,2,3,4,5)
+    val sub = List(1,2,9,4,5)
+    val result = List.hasSubsequence(list,sub)
+    assertResult(false)(result)
+    println(result)
+  }
+
+  test("Testing 3.24 3: "){
+
+    val list = List(1,2,3,4,5)
+    val sub = List(1,2,3,4,5)
+    val result = List.hasSubsequence(list,sub)
+    assertResult(true)(result)
+    println(result)
+  }
+
+  test("Testing 3.24 2: "){
+
+    val list = List(1,2,3,4,5)
+    val sub = List(2,3,4,5)
+    val result = List.hasSubsequence(list,sub)
+    assertResult(true)(result)
+    println(result)
+  }
+
+  test("Testing 3.24 1: "){
+
+    val list = List(1,2,3,4,5)
+    val sub = List(4,6)
+    val result = List.hasSubsequence(list,sub)
+    assertResult(true)(result)
+    println(result)
+  }
+
   test("Testing 3.23: Generalize the function you just wrote so that it’s not specific to integers or addition."){
 
     val list1 = List("A", "B", "C")
