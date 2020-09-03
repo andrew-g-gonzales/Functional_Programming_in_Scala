@@ -3,13 +3,24 @@ package fpinscala.ch3.datastructures.list
 import fpinscala.ch3.datastructures.list._
 import org.scalatest.funsuite.AnyFunSuite
 
-class TestList extends AnyFunSuite{
+class TestList extends AnyFunSuite {
+
+  test("Testing 3.24 8: "){
+
+    val list = Nil
+    val sub = Nil
+    //val result = List.hasSubsequence2(list,sub)
+    val result = List.hasSubsequence2(list)(sub)
+    assertResult(true)(result)
+    println(result)
+  }
 
   test("Testing 3.24 7: "){
 
     val list = List(1,2,3,4,5)
     val sub = List(5)
-    val result = List.hasSubsequence(list,sub)
+    //val result = List.hasSubsequence(list,sub)
+    val result = List.hasSubsequence2(list)(sub)
     assertResult(true)(result)
     println(result)
   }
@@ -18,7 +29,8 @@ class TestList extends AnyFunSuite{
 
     val list = List(1,2,3,4,5)
     val sub = List(1)
-    val result = List.hasSubsequence(list,sub)
+    //val result = List.hasSubsequence(list,sub)
+    val result = List.hasSubsequence2(list)(sub)
     assertResult(true)(result)
     println(result)
   }
@@ -27,7 +39,8 @@ class TestList extends AnyFunSuite{
 
     val list = List(1,2,3,4,5)
     val sub = List(1,2,3,4)
-    val result = List.hasSubsequence(list,sub)
+    //val result = List.hasSubsequence(list,sub)
+    val result = List.hasSubsequence2(list)(sub)
     assertResult(true)(result)
     println(result)
   }
@@ -36,7 +49,8 @@ class TestList extends AnyFunSuite{
 
     val list = List(1,2,3,4,5)
     val sub = List(1,2,9,4,5)
-    val result = List.hasSubsequence(list,sub)
+    //val result = List.hasSubsequence(list,sub)
+    val result = List.hasSubsequence2(list)(sub)
     assertResult(false)(result)
     println(result)
   }
@@ -45,7 +59,8 @@ class TestList extends AnyFunSuite{
 
     val list = List(1,2,3,4,5)
     val sub = List(1,2,3,4,5)
-    val result = List.hasSubsequence(list,sub)
+    //val result = List.hasSubsequence(list,sub)
+    val result = List.hasSubsequence2(list)(sub)
     assertResult(true)(result)
     println(result)
   }
@@ -54,16 +69,18 @@ class TestList extends AnyFunSuite{
 
     val list = List(1,2,3,4,5)
     val sub = List(2,3,4,5)
-    val result = List.hasSubsequence(list,sub)
+    //val result = List.hasSubsequence(list,sub)
+    val result = List.hasSubsequence2(list)(sub)
     assertResult(true)(result)
     println(result)
   }
 
   test("Testing 3.24 1: "){
 
-    val list = List(1,2,3,4,5)
+    val list = List(1,2,3,4,6)
     val sub = List(4,6)
-    val result = List.hasSubsequence(list,sub)
+    //val result = List.hasSubsequence(list,sub)
+    val result = List.hasSubsequence2(list)(sub)
     assertResult(true)(result)
     println(result)
   }

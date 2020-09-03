@@ -6,6 +6,21 @@ case class Cons[+A](head:A, tail:List[A]) extends List[A]
 
 object List {
 
+  @annotation.tailrec
+  def compare[A](list1:List[A], list2:List[A]):Boolean = (list1,list2) match {
+    case (Cons(x,xs), Cons(y,ys)) => if(x == y) compare(xs,ys) else false
+    case (Nil,_) => true
+    case (_,Nil) => false
+  }
+
+  @annotation.tailrec
+  def hasSubsequence2[A](list:List[A])(sequence:List[A]):Boolean = (list,sequence) match{
+    case (Nil,Nil)=> true
+    case(Nil,_) => false
+    case _ => if(compare(sequence,list)) true else hasSubsequence2(tail(list))(sequence)
+  }
+
+  @annotation.tailrec
   def hasSubsequence[A](list:List[A], sequence:List[A]):Boolean = {
 
     if(isEmpty(list)){
@@ -25,14 +40,10 @@ object List {
 
   def head[A](list:List[A]) = list match {
     case Cons(x,_)=>x
-    case Nil=>Nil
+    case Nil=>null
   }
 
-  def compare[A](list1:List[A], list2:List[A]):Boolean = (list1,list2) match {
-    case (Cons(x,xs), Cons(y,ys)) => if(x == y) compare(xs,ys) else false
-    case (Nil,_) => true
-    case (_,Nil) => false
-  }
+
 
   def zipWith[A,B,C](list1:List[A], list2:List[B])(f:(A,B)=>C):List[C] = (list1,list2) match {
     case (Nil,_) =>Nil
