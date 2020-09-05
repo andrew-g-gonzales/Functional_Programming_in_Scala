@@ -31,6 +31,64 @@ class TestEither extends AnyFunSuite {
   def safeDiv(x:Int, y:Int): Either[Exception, Int]
                     = try Right(x/y)catch {case e:Exception => Left(e)}
 
+  test("Listing 4.4"){
+
+    case class Person(name:Name, age:Age)
+    sealed case class Name(value:String)
+    sealed case class Age(value:Int)
+
+    def mkName(name:String):Either[String,Name] = name match{
+      case nm if(nm == null || nm.isEmpty) => Left("name is empty")
+      case nm => Right(Name(nm))
+    }
+
+    def mkAge(age:Int):Either[String,Age] = age match {
+      case a if(a < 0) => Left("age is less than zero")
+      case a => Right(Age(a))
+    }
+
+    def mkPerson(name:String,age:Int)
+          = mkName(name).map2(mkAge(age))(Person)
+
+    val eitherPerson = mkPerson("John Doe", 100)
+    assertResult(Right(Person(Name("John Doe"), Age(100))))(eitherPerson)
+    println(eitherPerson)
+  }
+
+  test("Testing 4.7: Implement traverse with pattern-matching/recursion"){
+
+    val numList = List(8,6,7,5,3,0)
+    val eitherList = Either.traverse_1(numList)(int2str)
+    assertResult(Right(numList.map(_.toString)))(eitherList)
+    println(eitherList)
+  }
+
+  test("Testing 4.7: Implement traverse with foldRight"){
+
+    val numList = List(8,6,7,5,3,0)
+    val eitherList = Either.traverse(numList)(int2str)
+    assertResult(Right(numList.map(_.toString)))(eitherList)
+    println(eitherList)
+  }
+
+  test("Testing 4.7: Implement sequence with foldRight"){
+
+    val numList = List(8,6,7,5,3,0)
+    val listOfEitherNums:List[Either[Exception,String]] = List(8,6,7,5,3,0).map(int2str)
+    val eitherList:Either[Exception,List[String]] = Either.sequence_2(listOfEitherNums)
+    assertResult(Right(numList.map(_.toString)))(eitherList)
+    println(eitherList)
+  }
+
+  test("Testing 4.7: Implement sequence with pattern-matching/recursion"){
+
+    val numList = List(8,6,7,5,3,0)
+    val listOfEitherNums:List[Either[Exception,String]] = List(8,6,7,5,3,0).map(int2str)
+    val eitherList:Either[Exception,List[String]] = Either.sequence_1(listOfEitherNums)
+    assertResult(Right(numList.map(_.toString)))(eitherList)
+    println(eitherList)
+  }
+
   test("Testing 4.6: Implement map2 on Either that operates on Right value"){
 
     val eitherResult:Either[Exception,Either[Exception,Int]] =  toInt("20").map2(toInt("5"))(safeDiv)
