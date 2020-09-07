@@ -6,6 +6,31 @@ import fpinscala.ch5.laziness.stream._
 
 class TestStream extends AnyFunSuite {
 
+  test("Testing 5.3: Write the function takeWhile for returning all starting elements of a Stream that " +
+    "match the given predicate."){
+
+    val stream = Stream(8,6,7,5,3,0,9)
+    val gT4 = stream.takeWhile(_ > 4).toList3
+    assertResult(List(8,6,7,5))(gT4)
+    println(gT4)
+  }
+
+  test("Testing 5.2: drop(n) for skipping the first n elements of a Stream"){
+
+    val stream = Stream(1,2,3,4,5,6,7,8,9,10)
+    val last5 = stream.drop(5).toList3
+    assertResult(List(6,7,8,9,10))(last5)
+    println(last5)
+  }
+
+  test("Testing 5.2: Write the function take(n) for returning the first n elements of a Stream"){
+
+    val stream = Stream(1,2,3,4,5,6,7,8,9,10)
+    val first5 = stream.take(5).toList2
+    assertResult(Stream(1,2,3,4,5).toList2)(first5)
+    println(first5)
+  }
+
   test("Testing 5.1 1: Write a function to convert a Stream to a List, which will force its evaluation and let" +
     "you look at it in the REPL. You can convert to the regular List type in the standard library. " +
     "You can place this and other functions that operate on a Stream inside the Stream trait."){
