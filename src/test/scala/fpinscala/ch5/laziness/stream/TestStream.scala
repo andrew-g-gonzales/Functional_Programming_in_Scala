@@ -6,6 +6,22 @@ import fpinscala.ch5.laziness.stream._
 
 class TestStream extends AnyFunSuite {
 
+  test("Testing exists"){
+
+    val stream = Stream(8,6,7,5,3,0,9)
+    val exists = stream.exists(_ == 5)
+    assert(exists)
+    println(exists)
+  }
+
+  test("Testing exists implemented with foldRight"){
+
+    val stream = Stream(8,6,7,5,3,0,9)
+    val exists = stream.exists2(_ == 5)
+    assert(exists)
+    println(exists)
+  }
+
   test("Testing 5.3: Write the function takeWhile for returning all starting elements of a Stream that " +
     "match the given predicate."){
 

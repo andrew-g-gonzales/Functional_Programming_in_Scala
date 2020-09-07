@@ -5,6 +5,18 @@ import fpinscala.ch5.laziness.stream.Stream.cons
 import Stream._
 sealed trait Stream[+A] {
 
+  def foldRight[B](z: => B)(f:(A, => B)=>B):B = this match {
+    case Cons(h,t) => f(h(), t().foldRight(z)(f))
+    case _ => z
+  }
+
+  def exists2(p:A=>Boolean): Boolean = foldRight(false)((a,b)=>p(a) || b)
+
+  def exists(p:A=>Boolean): Boolean = this match {
+    case Cons(h,t) => p(h()) || t().exists(p)
+    case _ => false
+  }
+
   def headOption: Option[A] = this match {
     case Empty => None
     case Cons(h,_) => Some(h())
