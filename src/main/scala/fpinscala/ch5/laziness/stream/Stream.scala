@@ -67,8 +67,8 @@ sealed trait Stream[+A] {
     case _ => empty
   }
 
-  def takeWhileUsingFoldRight(f:A=>Boolean)
-     = foldRight(empty[A])((a,b) => if (f(a)) cons(a,b) else empty)
+  def takeWhileUsingFoldRight(f:A=>Boolean): Stream[A]
+  = foldRight(empty[A])((a,b) => if (f(a)) cons(a,b) else empty)
 
   def takeWhile(p:A=>Boolean):Stream[A] = this match {
     case Cons(h,t) if p(h()) => cons(h(), t().takeWhile(p))
@@ -101,6 +101,9 @@ object Stream{
   def apply[A](as: A*): Stream[A] =
       if (as.isEmpty) empty else cons(as.head, apply(as.tail: _*))
 
+  def ones:Stream[Int] = cons(1,ones)
 
 
+
+  def from(n:Int):Stream[Int] = cons(n,from(n+1))
 }

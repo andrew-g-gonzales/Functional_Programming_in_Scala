@@ -6,6 +6,27 @@ import fpinscala.ch5.laziness.stream._
 
 class TestStream extends AnyFunSuite {
 
+  test("Testing 5.9: Write a function that generates an infinite stream of integers, starting from n, then n " +
+    "+ 1, n + 2, and so on"){
+
+    val to10 = Stream.from(1).take(10).toList3
+    assertResult(List(1,2,3,4,5,6,7,8,9,10))(to10)
+    println(to10)
+  }
+
+  test("Testing the ones function"){
+
+    val five1s = Stream.ones.take(5)
+    assertResult(List(1,1,1,1,1))(five1s.toList3)
+    println(five1s)
+
+    val evenExists = Stream.ones.map(_+1).exists(_%2 == 0)
+    assertResult(true)(evenExists)
+
+    val noOnes = Stream.ones.forAll2(_ != 1)
+    println(noOnes)
+  }
+
   test("Testing 5.7: Implement append using foldRight"){
 
     val stream = Stream(1,2,3,4,5)
