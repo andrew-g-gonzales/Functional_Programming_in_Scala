@@ -16,7 +16,12 @@ sealed trait Stream[+A] {
     case _ => false
   }
 
+  def append[B>:A](tl: =>Stream[B]):Stream[B]
+                      = foldRight(tl)((h,t) => cons(h,t))
 
+  def filter(p:A=>Boolean):Stream[A] = foldRight(Empty:Stream[A])((a,b) => if(p(a)) cons(a,b) else b)
+
+  def map[B](f:A=>B):Stream[B] = foldRight(Empty:Stream[B])((a,b) => cons(f(a),b))
 
   def forAll2(p:A=>Boolean): Boolean = foldRight(true)((a,b)=> p(a) && b)
 
@@ -26,6 +31,9 @@ sealed trait Stream[+A] {
     case Cons(h,t) => p(h()) || t().exists(p)
     case _ => false
   }
+
+  def headOptionUsingFoldRight: Option[A]
+          = foldRight(None: Option[A]) ((a,_) => Option(a))
 
   def headOption: Option[A] = this match {
     case Empty => None

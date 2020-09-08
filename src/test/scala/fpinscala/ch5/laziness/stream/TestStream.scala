@@ -6,6 +6,38 @@ import fpinscala.ch5.laziness.stream._
 
 class TestStream extends AnyFunSuite {
 
+  test("Testing 5.7: Implement append using foldRight"){
+
+    val stream = Stream(1,2,3,4,5)
+    val appended = stream.append(Stream(6,7,8,9,10)).toList3
+    assertResult(List(1,2,3,4,5,6,7,8,9,10))(appended)
+    println(appended)
+  }
+
+  test("Testing 5.7: Implement filter using foldRight"){
+
+    val stream = Stream(8,6,7,5,3,0,9)
+    val lt5 =stream.filter(_<5).toList3
+    assertResult(List(3,0))(lt5)
+    println(lt5)
+  }
+
+  test("Testing 5.7: Implement map using foldRight"){
+
+    val stream = Stream(1,2,3,4,5)
+    val doubled = stream.map(_*2).toList3
+    assertResult(List(2,4,6,8,10))(doubled)
+    println(doubled)
+  }
+
+  test("Testing 5.6: Implement headOption using foldRight."){
+
+    val stream = Stream(1,2,3)
+    val optHead = stream.headOption
+    assertResult(Some(1))(optHead)
+    println(optHead)
+  }
+
   test("Testing 5.4 for true case with foldRight: Implement forAll, which checks that all elements in the Stream match a given predicate." +
     "Your implementation should terminate the traversal as soon as it encounters a nonmatching value."){
 
