@@ -10,6 +10,16 @@ sealed trait Stream[+A] {
     case _ => z
   }
 
+  def forAll(p:A=>Boolean): Boolean = this match {
+    case Cons(h,t) if p(h()) => t().forAll(p)
+    case Empty => true
+    case _ => false
+  }
+
+
+
+  def forAll2(p:A=>Boolean): Boolean = foldRight(true)((a,b)=> p(a) && b)
+
   def exists2(p:A=>Boolean): Boolean = foldRight(false)((a,b)=>p(a) || b)
 
   def exists(p:A=>Boolean): Boolean = this match {
@@ -48,6 +58,9 @@ sealed trait Stream[+A] {
     case Cons(_,t) if n ==1 => t()
     case _ => empty
   }
+
+  def takeWhileUsingFoldRight(f:A=>Boolean)
+     = foldRight(empty[A])((a,b) => if (f(a)) cons(a,b) else empty)
 
   def takeWhile(p:A=>Boolean):Stream[A] = this match {
     case Cons(h,t) if p(h()) => cons(h(), t().takeWhile(p))
