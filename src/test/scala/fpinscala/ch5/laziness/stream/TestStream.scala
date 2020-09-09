@@ -10,7 +10,29 @@ class TestStream extends AnyFunSuite {
     "0, 1, 1, 2, 3, 5, 8, and so on."){
 
     val fibs = Stream.fibs.take(5).toList3
+    assertResult(List(0,1,1,2,3))(fibs)
     println(fibs)
+  }
+
+  test("Testing 5.12:  Write the 'fibs' function using 'unfold'"){
+
+    val fibs = Stream.fibs2.take(5).toList3
+    assertResult(List(0,1,1,2,3))(fibs)
+    println(fibs)
+  }
+
+  test("Testing 5.12: Write the 'constant' function using 'unfold'"){
+
+    val threeAs = Stream.constantViaUnfold("A").take(3).toList3
+    assertResult(List("A", "A", "A"))(threeAs)
+    println(threeAs)
+  }
+
+  test("Testing 5.12: Write the 'from' function using 'unfold'"){
+
+    val to10 = Stream.fromViaUnfold(1).take(10).toList3
+    assertResult(List(1,2,3,4,5,6,7,8,9,10))(to10)
+    println(to10)
   }
 
   test("Testing 5.9: Write a function that generates an infinite stream of integers, starting from n, then n " +
@@ -19,6 +41,19 @@ class TestStream extends AnyFunSuite {
     val to10 = Stream.from(1).take(10).toList3
     assertResult(List(1,2,3,4,5,6,7,8,9,10))(to10)
     println(to10)
+  }
+
+  test("Testing 5.12: the 'ones' function in terms of 'unfold'"){
+
+    val five1s = Stream.onesViaUnfold.take(5)
+    assertResult(List(1,1,1,1,1))(five1s.toList3)
+    println(five1s)
+
+    val evenExists = Stream.onesViaUnfold.map(_+1).exists(_%2 == 0)
+    assertResult(true)(evenExists)
+
+    val noOnes = Stream.onesViaUnfold.forAll2(_ != 1)
+    println(noOnes)
   }
 
   test("Testing the ones function"){
@@ -51,6 +86,14 @@ class TestStream extends AnyFunSuite {
   }
 
   test("Testing 5.7: Implement map using foldRight"){
+
+    val stream = Stream(1,2,3,4,5)
+    val doubled = stream.map(_*2).toList3
+    assertResult(List(2,4,6,8,10))(doubled)
+    println(doubled)
+  }
+
+  test("Testing 5.13: Implement map using unfold"){
 
     val stream = Stream(1,2,3,4,5)
     val doubled = stream.map(_*2).toList3
@@ -127,6 +170,14 @@ class TestStream extends AnyFunSuite {
     println(gT4)
   }
 
+  test("Testing 5.13: Implement takeWhile in terms of unfold"){
+
+    val stream = Stream(8,6,7,5,3,0,9)
+    val gT4 = stream.takeWhileViaUnfold(_ > 4).toList3
+    assertResult(List(8,6,7,5))(gT4)
+    println(gT4)
+  }
+
   test("Testing 5.3: Write the function takeWhile for returning all starting elements of a Stream that " +
     "match the given predicate."){
 
@@ -148,6 +199,14 @@ class TestStream extends AnyFunSuite {
 
     val stream = Stream(1,2,3,4,5,6,7,8,9,10)
     val first5 = stream.take(5).toList2
+    assertResult(Stream(1,2,3,4,5).toList2)(first5)
+    println(first5)
+  }
+
+  test("Testing 5.13: Implement take using unfold"){
+
+    val stream = Stream(1,2,3,4,5,6,7,8,9,10)
+    val first5 = stream.takeViaUnfold(5).toList2
     assertResult(Stream(1,2,3,4,5).toList2)(first5)
     println(first5)
   }

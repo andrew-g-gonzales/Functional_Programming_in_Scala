@@ -23,6 +23,12 @@ sealed trait Stream[+A] {
 
   def map[B](f:A=>B):Stream[B] = foldRight(Empty:Stream[B])((a,b) => cons(f(a),b))
 
+  def mapViaUnfold[B](f:A=>B)
+  = unfold(this){
+    case Cons(h,t) => Some((f(h()),t()))
+    case _ => None
+  }
+
   def forAll2(p:A=>Boolean): Boolean = foldRight(true)((a,b)=> p(a) && b)
 
   def exists2(p:A=>Boolean): Boolean = foldRight(false)((a,b)=>p(a) || b)
@@ -61,6 +67,13 @@ sealed trait Stream[+A] {
     case _ => empty
   }
 
+  def takeViaUnfold(n:Int)
+  = unfold(this){
+    case Cons(h,t) if n > 1 => Some((h(),t().take(n-1)))
+    case Cons(h,_) if n ==1 => Some((h(),empty))
+    case _ => None
+  }
+
   def drop(n:Int):Stream[A] = this match {
     case Cons(_,t) if n > 1 => t().drop(n-1)
     case Cons(_,t) if n ==1 => t()
@@ -69,6 +82,12 @@ sealed trait Stream[+A] {
 
   def takeWhileUsingFoldRight(f:A=>Boolean): Stream[A]
   = foldRight(empty[A])((a,b) => if (f(a)) cons(a,b) else empty)
+
+  def takeWhileViaUnfold(p:A=>Boolean):Stream[A] =
+    unfold(this){
+      case Cons(h,t) if p(h()) => Some((h(),t().takeWhileViaUnfold(p)))
+      case _ => None
+    }
 
   def takeWhile(p:A=>Boolean):Stream[A] = this match {
     case Cons(h,t) if p(h()) => cons(h(), t().takeWhile(p))
@@ -117,6 +136,14 @@ object Stream{
       case Some((h,s)) => cons(h, unfold(s)(f))
       case None => empty
     }
+
+  def fibs2:Stream[Int] = unfold((0,1)){case (f0,f1)=> Some(f0,(f1,f0+f1))}
+
+  def fromViaUnfold(n:Int):Stream[Int] = unfold(n)(n => Some((n,n+1)))
+
+  def onesViaUnfold:Stream[Int] = unfold(1)(_=> Some((1,1)))
+
+  def constantViaUnfold[A](a:A):Stream[A] = unfold(a)(_ => Some((a,a)))
 
   def from(n:Int):Stream[Int] = cons(n,from(n+1))
 }
