@@ -6,6 +6,13 @@ import fpinscala.ch5.laziness.stream._
 
 class TestStream extends AnyFunSuite {
 
+  test("Testing 5.10:  Write a function fibs that generates the infinite stream of Fibonacci numbers: " +
+    "0, 1, 1, 2, 3, 5, 8, and so on."){
+
+    val fibs = Stream.fibs.take(5).toList3
+    println(fibs)
+  }
+
   test("Testing 5.9: Write a function that generates an infinite stream of integers, starting from n, then n " +
     "+ 1, n + 2, and so on"){
 

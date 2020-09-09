@@ -1,5 +1,7 @@
 package fpinscala.ch3.datastructures.list
 
+import scala.annotation.tailrec
+
 trait List[+A]
 case object Nil extends List[Nothing]
 case class Cons[+A](head:A, tail:List[A]) extends List[A]
@@ -80,11 +82,11 @@ object List {
 
   def flatten[A](listOfLists:List[List[A]]):List[A] = foldLeft(listOfLists, Nil:List[A])((a,b)=> List.append2(a,b))
 
-  def append2[A](list1:List[A], list2:List[A]) = foldLeft(reverse(list1),list2)((b,a)=>Cons(a,b))
+  def append2[A](list1:List[A], list2:List[A]): List[A] = foldLeft(reverse(list1),list2)((b, a)=>Cons(a,b))
 
-  def append1[A](list1:List[A], list2:List[A]) = foldRight(list1,list2)(Cons(_,_))
+  def append1[A](list1:List[A], list2:List[A]): List[A] = foldRight(list1,list2)(Cons(_,_))
 
-  def reverse[A](list:List[A]) = foldLeft(list,Nil:List[A])((b,a)=> Cons(a,b))
+  def reverse[A](list:List[A]): List[A] = foldLeft(list,Nil:List[A])((b, a)=> Cons(a,b))
 
   @annotation.tailrec
   def foldLeft[A,B](ds:List[A],z:B)(f:(B,A)=>B):B = ds match {
@@ -92,16 +94,16 @@ object List {
       case Cons(x,xs) => foldLeft(xs,f(z,x))(f)
   }
 
-  def length[A](ds:List[A]) = foldRight(ds,0)((_,y)=>y+1)
+  def length[A](ds:List[A]): Int = foldRight(ds,0)((_, y)=>y+1)
 
   def foldRight[A,B](ds:List[A],z:B)(f:(A,B)=>B):B = ds match {
     case Nil => z
     case Cons(x, xs) => f(x, foldRight(xs,z)(f))
   }
 
-  def sum3(list:List[Int]) = foldLeft(list,0)(_+_)
+  def sum3(list:List[Int]): Int = foldLeft(list,0)(_+_)
 
-  def product3(list:List[Double]) = foldLeft(list,1.0)(_*_)
+  def product3(list:List[Double]): Double = foldLeft(list,1.0)(_*_)
 
   def sum2(list:List[Int]):Int = foldRight(list,0)(_+_)
 
@@ -118,6 +120,7 @@ object List {
     case Cons(h, Nil)=> Cons(h, append(a2,Nil))
   }
 
+  @tailrec
   def dropWhile[A](ds:List[A])(drop:A => Boolean):List[A] = ds match{
     case Cons(x,xs) if drop(x) => dropWhile(xs)(drop)
     case _ =>ds
@@ -129,6 +132,7 @@ object List {
     case Nil => Nil
   }
 
+  @tailrec
   def drop[A](ds:List[A], n:Int):List[A] = {
     if( n ==0){ds}
     else{

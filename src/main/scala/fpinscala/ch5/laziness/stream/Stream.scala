@@ -1,8 +1,8 @@
 package fpinscala.ch5.laziness.stream
 
 import fpinscala.ch5.laziness.stream.Stream.cons
-
 import Stream._
+import fpinscala.ch2.hof.Big
 sealed trait Stream[+A] {
 
   def foldRight[B](z: => B)(f:(A, => B)=>B):B = this match {
@@ -90,6 +90,15 @@ case class Cons[+A](h:()=>A, t:()=>Stream[A]) extends Stream[A]
 
 object Stream{
 
+  def fibs:Stream[Int] = {
+
+    def go(f0:Int, f1:Int):Stream[Int] = {
+      cons(f0,go(f1,f0+f1))
+    }
+
+    go(0,1)
+  }
+
   def cons[A](hd: =>A, tl: =>Stream[A]): Stream[A] = {
     lazy val head = hd
     lazy val tail = tl
@@ -103,7 +112,11 @@ object Stream{
 
   def ones:Stream[Int] = cons(1,ones)
 
-
+  def unfold[A, S](z: S)(f: S => Option[(A, S)]): Stream[A] =
+    f(z) match {
+      case Some((h,s)) => cons(h, unfold(s)(f))
+      case None => empty
+    }
 
   def from(n:Int):Stream[Int] = cons(n,from(n+1))
 }
