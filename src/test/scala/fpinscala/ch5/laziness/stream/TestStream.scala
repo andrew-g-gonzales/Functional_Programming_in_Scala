@@ -170,6 +170,48 @@ class TestStream extends AnyFunSuite {
     println(gT4)
   }
 
+  test("Testing 5.13: Using unfold to implement zipAll"){
+
+
+  }
+
+  test("Testing 5.13: Implement a zipAll function using unfold." +
+    "The zipAll function should continue the traversal as long as either stream" +
+    "has more elements—it uses Option to indicate whether each stream has been exhausted."){
+
+    val stream1 = Stream("A","B","C","D")
+    val stream2 = Stream(1, 2, 3)
+    val zipped = stream1.zipAll(stream2).toList2
+
+    assertResult(List((Some("A"),Some(1)), (Some("B"),Some(2)), (Some("C"),Some(3)), (Some("D"),None)))(zipped)
+    println(zipped)
+  }
+
+  test("Testing 5.13: Using unfold to implement zipWithAll"){
+    val stream1 = Stream("A","B","C")
+    val stream2 = Stream(1, 2, 3)
+
+    val zipped = stream1.zipWithAll(stream2)(pairUp).toList3
+    assertResult(List("A1", "B2", "C3"))(zipped)
+    println(zipped)
+  }
+
+  def pairUp[A,B,C](a:Option[A], b:Option[B]):String = (a,b) match {
+    case (None,None)=> ""
+    case (Some(x),None) => s"$x"
+    case (None,Some(y)) => s"$y"
+    case (Some(x), Some(y)) => s"$x$y"
+  }
+
+  test("Testing 5.13: Using unfold to implement zipWith"){
+
+    val stream1 = Stream("A", "B", "C")
+    val stream2 = Stream(1, 2, 3)
+    val zipped = stream1.zipWith(stream2)((a,b)=> s"$a$b").toList3
+    assertResult(List("A1", "B2", "C3"))(zipped)
+    println(zipped)
+  }
+
   test("Testing 5.13: Implement takeWhile in terms of unfold"){
 
     val stream = Stream(8,6,7,5,3,0,9)
