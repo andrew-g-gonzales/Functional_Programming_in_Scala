@@ -7,6 +7,22 @@ import fpinscala.ch2.hof.Big
 
 sealed trait Stream[+A] {
 
+  def tails:Stream[Stream[A]] =
+    unfold(this)  {
+      case Empty => None
+      case s => Some((s, s drop 1))
+    } append(empty)
+
+  def hasSubsequence[A](s:Stream[A]): Boolean = tails exists(_ startsWith s)
+
+  def scanRight[B](z:B)(f:(A, =>B)=>B):Stream[B]
+  = foldRight((z,Stream(z))){(a,p0) =>
+    lazy val p1 = p0
+    val b2 = f(a,p1._1)
+    (b2,cons(b2,p1._2))
+  }._2
+
+
   def foldRight[B](z: => B)(f:(A, => B)=>B):B = this match {
     case Cons(h,t) => f(h(), t().foldRight(z)(f))
     case _ => z
@@ -98,6 +114,11 @@ sealed trait Stream[+A] {
             }
 
   def zipAll[B](s2:Stream[B]):Stream[(Option[A], Option[B])] = zipWithAll(s2)((_,_))
+
+  def startsWith[A](s:Stream[A]):Boolean
+          = zipAll(s).takeWhileViaUnfold(_._2.isDefined) forAll2 {
+                                                                    case (h,h2) => h == h2
+                                                                  }
 
   def zipWithAll[B,C](s2: Stream[B])(f:(Option[A], Option[B])=>C): Stream[C]
           = Stream.unfold((this,s2)) {

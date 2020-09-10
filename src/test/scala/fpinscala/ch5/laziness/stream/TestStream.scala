@@ -187,6 +187,39 @@ class TestStream extends AnyFunSuite {
     println(zipped)
   }
 
+  test("Testing 5.14: Implement startsWith using functions you’ve written. It should check if one" +
+    "Stream is a prefix of another. For instance, Stream(1,2,3) startsWith Stream(1,2) would be true"){
+
+    val stream1 = Stream(1,2,3)
+    val stream2 = Stream(1,2)
+    assert(stream1.startsWith(stream2))
+  }
+
+  test("Test the hasSubsequence"){
+
+    val stream = Stream(1,2,3,4,5,6,7,8,9)
+    val subsequence = Stream(6,7,8)
+    assert(stream.hasSubsequence(subsequence))
+  }
+
+  test("Testing 5.15: Generalize tails to the function scanRight, " +
+    "which is like a foldRight that returns a stream of the intermediate results."){
+
+    val stream = Stream(1,2,3)
+    val result = stream.scanRight(0)(_+_).toList2
+    assertResult(List(6,5,3,0))(result)
+    println(result)
+  }
+
+  test("Testing 5.15: Implement tails using unfold. For a given Stream, " +
+    "tails returns the Stream of suffixes of the input sequence, starting with " +
+    "the original Stream. For example, given Stream(1,2,3), " +
+    "it would return Stream(Stream(1,2,3), Stream(2,3), Stream(3), Stream())."){
+
+    val stream = Stream(1,2,3,4,5,6,7,8,9,10)
+    println(stream.tails.toList2.map(_.toList2))
+  }
+
   test("Testing 5.13: Using unfold to implement zipWithAll"){
     val stream1 = Stream("A","B","C")
     val stream2 = Stream(1, 2, 3)
